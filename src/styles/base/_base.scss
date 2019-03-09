@@ -21,6 +21,7 @@ button:disabled {
   cursor: default;
 }
 
-// ul {
-//   list-style-type: decimal;
-// }
+.is-active {
+  color: $off-white;
+  font-weight: 500;
+}
