@@ -1,8 +1,9 @@
 import uuid from '../helpers/uuid.js';
+import moment from 'moment'
 
-export const addExpense = ({ description = '', note = '', amount = 0 } = {}) => ({
+export const addExpense = ({ description = '', note = '', amount = 0, createdAt = moment().valueOf() } = {}) => ({
   type: 'ADD_EXPENSE',
-  txn: {id: uuid(), createdAt: Date.now(), description, note, amount} ,
+  txn: {id: uuid(), createdAt, description, note, amount} ,
 });
 
 export const editExpense = ({ id, updates } = {}) => ({
