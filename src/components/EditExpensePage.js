@@ -1,11 +1,10 @@
-import React from 'react';
-import {connect} from 'react-redux'
-import ExpenseForm from '../components/ExpenseForm'
-import {editExpense, removeExpense} from '../actions/expenses'
+import {connect} from 'react-redux';
+import ExpenseForm from '../components/ExpenseForm';
+import {editExpense, removeExpense} from '../actions/expenses';
 
 const EditExpensePage = props =>
 	<div>
-		<ExpenseForm 
+		<ExpenseForm
 			expense = {props.expense}
 			onSubmit = {exp => {
 				props.dispatch (editExpense ({
@@ -13,19 +12,19 @@ const EditExpensePage = props =>
 					updates: exp
 					}));
 				props.history.push('/');
-				}} 
+				}}
 		/>
-		<button 
+		<button
 			onClick={() => {
-				props.dispatch (removeExpense ({id: props.expense.id}))
+				props.dispatch (removeExpense ({id: props.expense.id}));
 				props.history.push('/');
 				}}>
 			Remove
 		</button>
-	</div>
+	</div>;
 
 const mapStateToProps = (state, props) => ({
 	expense: state.expenses.find (exp => exp.id === props.match.params.id)
-})
+});
 
-export default connect (mapStateToProps) (EditExpensePage)
+export default connect (mapStateToProps) (EditExpensePage);

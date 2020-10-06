@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const NowherePage = () =>
+const NotFoundPage = () =>
 <div>
 	hmmm ... 404! ... <Link to="/">Go Back</Link>
-</div>
+</div>;
 
-export default NowherePage
+export default NotFoundPage;

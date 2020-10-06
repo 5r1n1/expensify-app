@@ -1,5 +1,5 @@
-import React from 'react'
-import {Link} from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const ExpenseListItem = props =>
   <div>
@@ -10,6 +10,6 @@ const ExpenseListItem = props =>
     <div>Amount: {props.amount}</div>
     <div>Note: {props.note}</div>
     <p></p>
-  </div>
+  </div>;
 
-export default ExpenseListItem 
+export default ExpenseListItem;
