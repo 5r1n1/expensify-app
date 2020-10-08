@@ -3,28 +3,22 @@ import { connect } from 'react-redux';
 import { DateRangePicker } from 'react-dates';
 import { setTextFilter, setDateRange, setSortBy } from '../actions/filters';
 
-class ExpenseListFilters extends React.Component {
+export class ExpenseListFilters extends React.Component {
   state = { calFocused: null }
 
-  onFocusChange = calFocused =>
-    this.setState(() => ({ calFocused }))
-
-  onDatesChange = ({ startDate, endDate }) => {
-    this.props.dispatch (setDateRange ({ startDate, endDate }));
-  }
+  onTextChange = e => this.props.setTextFilter(e.target.value);
+  onSortChange = e => this.props.setSortBy(e.target.value);
+  onDatesChange = range => this.props.setDateRange (range);
+  onFocusChange = calFocused => this.setState(() => ({ calFocused }))
 
   render() {
     return (
       <div>
         <input type='text' value={this.props.filters.text}
-          onChange = {e => {
-            this.props.dispatch (setTextFilter ({ text: e.target.value }));
-          }}
+          onChange = {this.onTextChange}
         />
         <select value={this.props.filters.sortBy}
-          onChange={e => {
-            this.props.dispatch(setSortBy (e.target.value));
-          }}>
+          onChange={this.onSortChange}>
             <option value="date">Date</option>
             <option value="amount">Amount</option>
         </select>
@@ -45,6 +39,11 @@ class ExpenseListFilters extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({ filters: state.filters });
+const mapState = state => ({ filters: state.filters });
+const mapDispatch = dispatch => ({
+  setSortBy: sortBy => dispatch(setSortBy(sortBy)),
+  setDateRange: range => dispatch(setDateRange(range)),
+  setTextFilter: text => dispatch(setTextFilter({ text })),
+});
 
-export default connect (mapStateToProps) (ExpenseListFilters);
+export default connect (mapState, mapDispatch) (ExpenseListFilters);

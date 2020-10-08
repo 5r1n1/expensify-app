@@ -18,29 +18,29 @@ export default class ExpenseForm extends React.Component {
     };
   }
 
-  onDescriptionChange(e) {
+  onDescriptionChange = e => {
     const description = e.target.value;
     this.setState (() => ({description}));
   }
 
-  onAmountChange(e) {
+  onAmountChange = e => {
     const amount = e.target.value;
     if (!amount || amount.match (/^\d{1,}(\.\d{0,2})?$/))
       this.setState (() => ({amount}));
   }
 
-  onDateChange(createdAt) {
+  onDateChange = createdAt => {
     if (createdAt) this.setState (() => ({createdAt}));
   }
 
-  onFocusChange({ focused }) { this.setState({ calFocused: focused }); }
+  onFocusChange = ({ focused }) => { this.setState({ calFocused: focused }); }
 
-  onNoteChange(e) {
+  onNoteChange = e => {
     const note = e.target.value;
     this.setState (() => ({note}));
   }
 
-  onSubmit(e) {
+  onSubmit = e => {
     e.preventDefault();
     if (!this.state.description || !this.state.amount)
       this.setState ({error: 'Please provide all information'});
