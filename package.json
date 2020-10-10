@@ -61,7 +61,8 @@
     "build:dev": "webpack --watch",
     "build:prod": "webpack -p --env production",
     "lint": "eslint src --cache",
-    "test": "jest"
+    "test": "jest",
+    "heroku-postbuild": "npm run build:prod"
   },
   "jest": {
     "verbose": true,
