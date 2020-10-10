@@ -41,7 +41,9 @@
     "eslint-plugin-standard": "^4.0.1",
     "jest": "^24.9.0",
     "jest-runtime": "^26.5.0",
+    "live-server": "^1.2.1",
     "metro-react-native-babel-preset": "^0.63.0",
+    "mini-css-extract-plugin": "^0.12.0",
     "node-sass": "^4.11.0",
     "normalize-css": "^2.3.1",
     "raf": "^3.4.1",
@@ -52,8 +54,10 @@
     "webpack-dev-server": "^3.11.0"
   },
   "scripts": {
-    "start": "webpack-dev-server --open",
-    "build": "webpack --watch",
+    "serve": "live-server public/",
+    "dev-server": "webpack-dev-server --open",
+    "build:dev": "webpack --watch",
+    "build:prod": "webpack -p --env production",
     "lint": "eslint src --cache",
     "test": "jest"
   },
