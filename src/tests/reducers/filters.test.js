@@ -6,8 +6,8 @@ describe('Testing Filters Reducer...', () => {
     const state = filtersReducer(undefined, { type: '@@init' });
     expect(state).toHaveProperty('text', '');
     expect(state).toHaveProperty('sortBy', 'date');
-    expect(state).toHaveProperty('startDate', moment().startOf('month'));
-    expect(state).toHaveProperty('endDate', moment().endOf('month'));
+    expect(state).toHaveProperty('startDate', moment('2019-01-01'));
+    expect(state).toHaveProperty('endDate', moment('2020-12-31'));
   });
 
   test('testing text filter...', async() => {
@@ -17,8 +17,8 @@ describe('Testing Filters Reducer...', () => {
     });
     expect(state).toHaveProperty('text', '');
     expect(state).toHaveProperty('sortBy', 'amount');
-    expect(state).toHaveProperty('startDate', moment().startOf('month'));
-    expect(state).toHaveProperty('endDate', moment().endOf('month'));
+    expect(state).toHaveProperty('startDate', moment('2019-01-01'));
+    expect(state).toHaveProperty('endDate', moment('2020-12-31'));
   });
 
   test('testing text filter...', async() => {
@@ -28,8 +28,8 @@ describe('Testing Filters Reducer...', () => {
     });
     expect(state).toHaveProperty('text', '');
     expect(state).toHaveProperty('sortBy', 'date');
-    expect(state).toHaveProperty('startDate', moment().startOf('month'));
-    expect(state).toHaveProperty('endDate', moment().endOf('month'));
+    expect(state).toHaveProperty('startDate', moment('2019-01-01'));
+    expect(state).toHaveProperty('endDate', moment('2020-12-31'));
   });
 
   test('testing date filter...', async() => {

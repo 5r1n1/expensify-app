@@ -9,7 +9,7 @@ body {
   color: $off-white;
 }
 
-h1 {  
+h1 {
   font-size: $l-size;
 }
 
@@ -24,4 +24,24 @@ button:disabled {
 .is-active {
   color: $off-white;
   font-weight: 500;
+}
+
+/* unvisited link */
+a:link {
+  color: #0092cc
+}
+
+/* visited link */
+a:visited {
+  color: #ce4a50;
+}
+
+/* mouse over link */
+a:hover {
+  color: hotpink;
+}
+
+/* selected link */
+a:active {
+  color: #33c5ff;
 }

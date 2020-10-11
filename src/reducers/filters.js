@@ -3,8 +3,8 @@ import moment from 'moment';
 const filterReducerDefaultState = {
   text: '',
   sortBy: 'date',
-  startDate: moment().startOf('month'),
-  endDate: moment().endOf('month'),
+  startDate: moment('2019-01-01'),
+  endDate: moment('2020-12-31'),
 };
 
 export default (state = filterReducerDefaultState, action) => {

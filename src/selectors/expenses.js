@@ -14,3 +14,8 @@ export const getVisibleExpenses = (
 }).sort((a, b) => sortBy === 'amount' ?
   a.amount - b.amount : a.createdAt - b.createdAt
 );
+
+export const getExpenseSummary = expenses => ({
+  count: expenses.length,
+  total: expenses.reduce((a, i) => a + i.amount, 0)
+});

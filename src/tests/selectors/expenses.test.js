@@ -1,8 +1,11 @@
 import moment from 'moment';
-import { getVisibleExpenses } from '../../selectors/expenses';
+import {
+  getVisibleExpenses,
+  getExpenseSummary
+} from '../../selectors/expenses';
 import expenses from '../fixtures/expenses';
 
-describe('Testing Expense Selector...', () => {
+describe('Testing Visible Expenses...', () => {
   test('testing text filter...', async() => {
     const txtFilter = {
       text: 'Bill',
@@ -82,5 +85,25 @@ describe('Testing Expense Selector...', () => {
     expect(result[1]).toHaveProperty('id', 3);
     expect(result[2]).toHaveProperty('id', 2);
     expect(result[3]).toHaveProperty('id', 4);
+  });
+});
+
+describe('Testing Expense Summary...', () => {
+  test('testing with no expenses...', async() => {
+    const result = getExpenseSummary([]);
+    expect(result.count).toBe(0);
+    expect(result.total).toBe(0);
+  });
+
+  test('testing with single expenses...', async() => {
+    const result = getExpenseSummary([expenses[0]]);
+    expect(result.count).toBe(1);
+    expect(result.total).toBe(6800);
+  });
+
+  test('testing with multiple expenses...', async() => {
+    const result = getExpenseSummary(expenses);
+    expect(result.count).toBe(4);
+    expect(result.total).toBe(3598100);
   });
 });
