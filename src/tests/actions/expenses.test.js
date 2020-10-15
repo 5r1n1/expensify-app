@@ -23,25 +23,24 @@ describe('Testing Expense Action Generators...', () => {
 
   test('testing addExp with data...', done => {
     const store = createMockStore({});
-    store.dispatch(addExp(exp[1])).then(() => {
+    const exp1 = {
+      description: exp[1].description,
+      note: exp[1].note,
+      amount: exp[1].amount,
+      createdAt: exp[1].createdAt,
+    };
+    store.dispatch(addExp(exp1)).then(() => {
       const actions = store.getActions();
-      expect (actions[0]).toHaveProperty('type', 'ADD_EXPENSE');
-      expect (actions[0]).toHaveProperty('txn');
-      expect(actions[0].txn).toHaveProperty('description', exp[1].description);
-      expect(actions[0].txn).toHaveProperty('note', exp[1].note);
-      expect(actions[0].txn).toHaveProperty('amount', exp[1].amount);
-      expect(actions[0].txn).toHaveProperty('createdAt', exp[1].createdAt);
-
-      db.ref(`expenses/${actions[0].id}`).once('value').then(data => {
-        expect(data.id).toBe(actions[0].id);
-        expect(data.description).toBe(actions[0].description);
-        expect(data.note).toBe(actions[0].note);
-        expect(data.amount).toBe(actions[0].amount);
-        expect(data.createdAt).toBe(actions[0].createdAt);
-        done();
+      expect (actions[0]).toEqual({
+        type: 'ADD_EXPENSE',
+        txn: { id: expect.any(String), ...exp1 }
       });
 
-    }).catch(e => console.log(e));
+      return db.ref(`expenses/${actions[0].txn.id}`).once('value');
+    }).then(data => {
+      expect(data.val()).toEqual(exp1);
+      done();
+    });
   });
 
   test('testing editExpense...', () => {

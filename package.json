@@ -29,7 +29,9 @@
     "@types/jest": "^26.0.14",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
+    "cross-env": "^7.0.2",
     "css-loader": "^2.1.1",
+    "dotenv": "^8.2.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.5",
     "enzyme-to-json": "^3.6.1",
@@ -62,7 +64,7 @@
     "build:dev": "webpack --watch",
     "build:prod": "webpack -p --env production",
     "lint": "eslint src --cache",
-    "test": "jest",
+    "test": "cross-env NODE_ENV=test jest",
     "heroku-postbuild": "npm run build:prod"
   },
   "jest": {
