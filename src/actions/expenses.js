@@ -1,24 +1,19 @@
 import moment from 'moment';
 import db from '../firebase/firebase';
 
-const defaultExp = {
-  description: '',
-  note: '',
-  amount: 0,
-  createdAt: moment().valueOf()
-};
-
 export const addExpense = txn => ({ type: 'ADD_EXPENSE', txn });
 
-export const addExp = (exp = {}) => {
-  return dispatch => {
-    const expense = { ...defaultExp, ...exp };
-    console.log('***Inside addExp****');
-    return db.ref('expenses').push(expense).then(res => {
-      dispatch(addExpense({ id: res.key, ...expense }));
-      console.log ('*********addExpense dispatched************');
-    });
-  };
+export const addExp = (exp = {}) => dispatch => {
+  const {
+    description = '',
+    note = '',
+    amount = 0,
+    createdAt = moment().valueOf()
+  } = exp;
+  const expense = { description, note, amount, createdAt };
+  return db.ref('expenses').push(expense).then(res =>
+    dispatch(addExpense({ id: res.key, ...expense }))
+  );
 };
 
 export const editExpense = (id, updates) => ({

@@ -5,7 +5,7 @@ import {
   addExpense, addExp, editExpense, removeExpense
 } from '../../actions/expenses';
 import exp from '../fixtures/expenses';
-import '../../firebase/firebase';
+import db from '../../firebase/firebase';
 
 const createMockStore = configureMockStore([thunk]);
 
@@ -23,9 +23,7 @@ describe('Testing Expense Action Generators...', () => {
 
   test('testing addExp with data...', done => {
     const store = createMockStore({});
-    console.log ('*************Outside*******************');
     store.dispatch(addExp(exp[1])).then(() => {
-      console.log ('*************Inside*******************');
       const actions = store.getActions();
       expect (actions[0]).toHaveProperty('type', 'ADD_EXPENSE');
       expect (actions[0]).toHaveProperty('txn');
@@ -33,16 +31,15 @@ describe('Testing Expense Action Generators...', () => {
       expect(actions[0].txn).toHaveProperty('note', exp[1].note);
       expect(actions[0].txn).toHaveProperty('amount', exp[1].amount);
       expect(actions[0].txn).toHaveProperty('createdAt', exp[1].createdAt);
-      done();
 
-      // db.ref(`expenses/${actions[0].id}`).once('value').then(data => {
-      //   expect(data.id).toBe(actions[0].id);
-      //   expect(data.description).toBe(actions[0].description);
-      //   expect(data.note).toBe(actions[0].note);
-      //   expect(data.amount).toBe(actions[0].amount);
-      //   expect(data.createdAt).toBe(actions[0].createdAt);
-      //   done();
-      // });
+      db.ref(`expenses/${actions[0].id}`).once('value').then(data => {
+        expect(data.id).toBe(actions[0].id);
+        expect(data.description).toBe(actions[0].description);
+        expect(data.note).toBe(actions[0].note);
+        expect(data.amount).toBe(actions[0].amount);
+        expect(data.createdAt).toBe(actions[0].createdAt);
+        done();
+      });
 
     }).catch(e => console.log(e));
   });
