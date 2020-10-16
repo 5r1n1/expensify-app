@@ -9,15 +9,15 @@ describe('Testing Expenses Reducer...', () => {
   });
 
   test('should add expense...', async() => {
-    const txn = {
+    const expense = {
       id: 5,
       description: 'description123',
       note: 'notes123',
       amount: 2345,
       createdAt: moment('2020-10-05').valueOf()
     };
-    const addAction = { type: 'ADD_EXPENSE', txn };
-    const state = expensesReducer(expenses, addAction);
+    const action = { type: 'ADD_EXPENSE', expense };
+    const state = expensesReducer(expenses, action);
     expect(state).toHaveLength(5);
     expect(state[4]).toHaveProperty('description', 'description123');
     expect(state[4]).toHaveProperty('note', 'notes123');
@@ -56,14 +56,20 @@ describe('Testing Expenses Reducer...', () => {
   });
 
   test('should delete expense...', async() => {
-    const removeAction = { type: 'REMOVE_EXPENSE', id: 1 };
-    const state = expensesReducer(expenses, removeAction);
+    const action = { type: 'REMOVE_EXPENSE', id: 1 };
+    const state = expensesReducer(expenses, action);
     expect(state).toHaveLength(3);
   });
 
   test('should not delete expense if invalid id...', async() => {
-    const removeAction = { type: 'REMOVE_EXPENSE', id: 17 };
-    const state = expensesReducer(expenses, removeAction);
+    const action = { type: 'REMOVE_EXPENSE', id: 17 };
+    const state = expensesReducer(expenses, action);
     expect(state).toEqual(expenses);
+  });
+
+  test('should set Expenses...', async() => {
+    const action = { type: 'SET_EXPENSES', expenses: [expenses[2]] };
+    const state = expensesReducer(expenses, action);
+    expect(state).toEqual([expenses[2]]);
   });
 });

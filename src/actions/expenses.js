@@ -1,14 +1,13 @@
-import moment from 'moment';
 import db from '../firebase/firebase';
 
-export const addExpense = txn => ({ type: 'ADD_EXPENSE', txn });
+export const addExpense = expense => ({ type: 'ADD_EXPENSE', expense });
 
 export const addExp = (exp = {}) => dispatch => {
   const {
     description = '',
     note = '',
     amount = 0,
-    createdAt = moment().valueOf()
+    createdAt = 0
   } = exp;
   const expense = { description, note, amount, createdAt };
   return db.ref('expenses').push(expense).then(res =>
@@ -31,3 +30,12 @@ export const delExp = id => dispatch =>
   db.ref(`expenses/${id}`).remove().then(res =>
     dispatch(removeExpense(res.key))
   );
+
+export const setExpenses = expenses => ({ type: 'SET_EXPENSES', expenses });
+
+export const setExp = () => dispatch =>
+  db.ref('expenses').once('value', data => {
+    const expenses = [];
+    data.forEach(exp => { expenses.push({ id:exp.key, ...exp.val() }); });
+    dispatch(setExpenses(expenses));
+  });
