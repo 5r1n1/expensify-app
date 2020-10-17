@@ -1,7 +1,8 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import {
-  addExpense, addExp, editExpense, removeExpense, setExpenses, setExp
+  addExpense, editExpense, removeExpense, setExpenses,
+  addExp, editExp, delExp, setExp
 } from '../../actions/expenses';
 import exp from '../fixtures/expenses';
 import db from '../../firebase/firebase';
@@ -98,6 +99,39 @@ describe('Testing Expense Action Generators...', () => {
     store.dispatch(setExp()).then(() => {
       const actions = store.getActions();
       expect (actions[0].type).toEqual('SET_EXPENSES');
+      done();
+    });
+  });
+
+  test('testing delExp...', done => {
+    const store = createMockStore(exp);
+    store.dispatch(delExp(exp[1].id)).then(() => {
+      const actions = store.getActions();
+      expect (actions[0].type).toEqual('REMOVE_EXPENSE');
+      expect (actions[0].id).toEqual(exp[1].id);
+      return db.ref(`expenses/${exp[1].id}`).once('value');
+    }).then(data => {
+      expect(data.val()).toBeFalsy();
+      done();
+    });
+  });
+
+  test('testing editExp...', done => {
+    const store = createMockStore(exp);
+    const updates = {
+      description: 'edited description',
+      note: 'edited note',
+      amount: 123,
+      createdAt: 123
+    };
+    store.dispatch(editExp(exp[1].id, updates)).then(() => {
+      const actions = store.getActions();
+      expect (actions[0].type).toEqual('EDIT_EXPENSE');
+      expect (actions[0].id).toEqual(exp[1].id);
+      expect (actions[0].updates).toEqual(updates);
+      return db.ref(`expenses/${exp[1].id}`).once('value');
+    }).then(data => {
+      expect(data.val()).toEqual(updates);
       done();
     });
   });
