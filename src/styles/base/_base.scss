@@ -45,3 +45,19 @@ a:hover {
 a:active {
   color: #33c5ff;
 }
+
+.NavLink {
+  color: #0092cc;
+  padding: $xs-size;
+  margin: $xs-size;
+  border-radius: 5px;
+  border: 2px solid white;
+}
+
+.is-active {
+  color: #33c5ff;
+  padding: $xs-size;
+  margin: $xs-size;
+  border-radius: 5px;
+  border: 2px solid white;
+}

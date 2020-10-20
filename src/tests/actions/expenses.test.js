@@ -8,12 +8,14 @@ import exp from '../fixtures/expenses';
 import db from '../../firebase/firebase';
 
 const createMockStore = configureMockStore([thunk]);
+const uid = 'fakeuserid';
+const testAuthState = { auth: { uid } };
 
 beforeEach(done => {
   const expData = {};
   exp.forEach(({ id, description, note, amount, createdAt }) => {
     expData[id] = { description, note, amount, createdAt };
-    db.ref('expenses').set(expData).then(() => done());
+    db.ref(`users/${uid}/expenses`).set(expData).then(() => done());
   });
 });
 
@@ -31,7 +33,7 @@ describe('Testing Expense Action Generators...', () => {
   });
 
   test('testing addExp with data...', done => {
-    const store = createMockStore({});
+    const store = createMockStore(testAuthState);
     const exp1 = {
       description: exp[1].description,
       note: exp[1].note,
@@ -44,8 +46,8 @@ describe('Testing Expense Action Generators...', () => {
         type: 'ADD_EXPENSE',
         expense: { id: expect.any(String), ...exp1 }
       });
-
-      return db.ref(`expenses/${actions[0].expense.id}`).once('value');
+      const expenseId = actions[0].expense.id;
+      return db.ref(`users/${uid}/expenses/${expenseId}`).once('value');
     }).then(data => {
       expect(data.val()).toEqual(exp1);
       done();
@@ -53,7 +55,7 @@ describe('Testing Expense Action Generators...', () => {
   });
 
   test('testing addExp with no data (default)...', done => {
-    const store = createMockStore({});
+    const store = createMockStore(testAuthState);
     const defaultExp = {
       description: '',
       note: '',
@@ -66,8 +68,8 @@ describe('Testing Expense Action Generators...', () => {
         type: 'ADD_EXPENSE',
         expense: { id: expect.any(String), ...defaultExp }
       });
-
-      return db.ref(`expenses/${actions[0].expense.id}`).once('value');
+      const expenseId = actions[0].expense.id;
+      return db.ref(`users/${uid}/expenses/${expenseId}`).once('value');
     }).then(data => {
       expect(data.val()).toEqual(defaultExp);
       done();
@@ -95,7 +97,7 @@ describe('Testing Expense Action Generators...', () => {
   });
 
   test('testing setExp...', done => {
-    const store = createMockStore({});
+    const store = createMockStore(testAuthState);
     store.dispatch(setExp()).then(() => {
       const actions = store.getActions();
       expect (actions[0].type).toEqual('SET_EXPENSES');
@@ -104,12 +106,12 @@ describe('Testing Expense Action Generators...', () => {
   });
 
   test('testing delExp...', done => {
-    const store = createMockStore(exp);
+    const store = createMockStore({ expenses: exp, ...testAuthState });
     store.dispatch(delExp(exp[1].id)).then(() => {
       const actions = store.getActions();
       expect (actions[0].type).toEqual('REMOVE_EXPENSE');
       expect (actions[0].id).toEqual(exp[1].id);
-      return db.ref(`expenses/${exp[1].id}`).once('value');
+      return db.ref(`users/${uid}/expenses/${exp[1].id}`).once('value');
     }).then(data => {
       expect(data.val()).toBeFalsy();
       done();
@@ -117,7 +119,7 @@ describe('Testing Expense Action Generators...', () => {
   });
 
   test('testing editExp...', done => {
-    const store = createMockStore(exp);
+    const store = createMockStore({ expenses: exp, ...testAuthState });
     const updates = {
       description: 'edited description',
       note: 'edited note',
@@ -129,7 +131,7 @@ describe('Testing Expense Action Generators...', () => {
       expect (actions[0].type).toEqual('EDIT_EXPENSE');
       expect (actions[0].id).toEqual(exp[1].id);
       expect (actions[0].updates).toEqual(updates);
-      return db.ref(`expenses/${exp[1].id}`).once('value');
+      return db.ref(`users/${uid}/expenses/${exp[1].id}`).once('value');
     }).then(data => {
       expect(data.val()).toEqual(updates);
       done();
