@@ -6,6 +6,7 @@ import AppRouter, { history } from './routers/AppRouter';
 import configureStore from './store/configureStore';
 import { setExp } from './actions/expenses';
 import { login, logout } from './actions/auth';
+import LoadingPage from './components/LoadingPage';
 
 import './styles/styles.scss';
 import 'normalize-css/normalize.css';
@@ -28,7 +29,7 @@ const renderApp = () => {
   }
 };
 
-ReactDOM.render (<p>Loading...</p>, document.getElementById('app'));
+ReactDOM.render (<LoadingPage />, document.getElementById('app'));
 
 fb.auth().onAuthStateChanged(user => {
   if (user) {

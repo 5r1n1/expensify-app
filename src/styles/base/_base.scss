@@ -1,16 +1,15 @@
+* {
+  box-sizing: border-box;
+}
+
 html { // 1rem = 16px in this display
   font-size: 62.5%;
 }
 
 body {
-  background-color: $dark-blue;
   font-family: Helvetica, Arial, sans-serif;
   font-size: $m-size;
-  color: $off-white;
-}
-
-h1 {
-  font-size: $l-size;
+  line-height: 1.6;
 }
 
 button {
@@ -19,45 +18,4 @@ button {
 
 button:disabled {
   cursor: default;
-}
-
-.is-active {
-  color: $off-white;
-  font-weight: 500;
-}
-
-/* unvisited link */
-a:link {
-  color: #0092cc
-}
-
-/* visited link */
-a:visited {
-  color: #ce4a50;
-}
-
-/* mouse over link */
-a:hover {
-  color: hotpink;
-}
-
-/* selected link */
-a:active {
-  color: #33c5ff;
-}
-
-.NavLink {
-  color: #0092cc;
-  padding: $xs-size;
-  margin: $xs-size;
-  border-radius: 5px;
-  border: 2px solid white;
-}
-
-.is-active {
-  color: #33c5ff;
-  padding: $xs-size;
-  margin: $xs-size;
-  border-radius: 5px;
-  border: 2px solid white;
 }

@@ -7,6 +7,7 @@
   "description": "Created as part of Andrew Mead's online ReactJS course",
   "main": "index.js",
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "express": "^4.17.1",
     "firebase": "^7.23.0",
     "history": "^4.10.1",

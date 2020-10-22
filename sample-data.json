@@ -1,0 +1,32 @@
+{
+  "-MJhFoGjeedm-I-2cJkt" : {
+    "amount" : 6800,
+    "createdAt" : 1551378600000,
+    "description" : "Water Bill Jan 2019",
+    "note" : "Paid online ref# 6AB2SY5"
+  },
+  "-MJhFoGmPZkJzj6bLpVW" : {
+    "amount" : 47300,
+    "createdAt" : 1554057000000,
+    "description" : "Electricity Bill Jan 2019",
+    "note" : "Was not paid on time. Meter Reader came to remind"
+  },
+  "-MJhFoGoLuz5XAvoAwIO" : {
+    "amount" : 44000,
+    "createdAt" : 1556649000000,
+    "description" : "Newspaper Bill Jan 2019",
+    "note" : "Stopped paper. Used only as use and throw placemats"
+  },
+  "-MJhFoGqvOpwQYYnTUB4" : {
+    "amount" : 109500,
+    "createdAt" : 1555688340000,
+    "description" : "Rent Jan 2019",
+    "note" : "Last payment for this address"
+  },
+  "-MJyQ7HcJnvbE2kEO2pQ" : {
+    "amount" : 1100,
+    "createdAt" : 1578205800000,
+    "description" : "Internet Bill Jan 2020",
+    "note" : "Paid in advance"
+  }
+}
