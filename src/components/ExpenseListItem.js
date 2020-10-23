@@ -14,7 +14,7 @@ const ExpenseListItem = props =>
       <h3 className='list-item__data'>{new Intl.NumberFormat(
         'en-IN',
         { style: 'currency', currency: 'INR' }
-      ).format(props.amount / 100)}</h3>
+      ).format(props.amount)}</h3>
     </div>
   </Link>;
 

@@ -17,7 +17,7 @@ export const ExpenseSummary = ({ count, total }) => {
             {new Intl.NumberFormat(
               'en-IN',
               { style: 'currency', currency: 'INR' }
-            ).format(total / 100)}
+            ).format(total)}
           </span>
         </h1>
         <div className='page-header__actions'>
